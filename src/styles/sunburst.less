@@ -1,0 +1,47 @@
+.sunburst-outer {
+  min-height: 100%;
+  height: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #722389;
+  background-image: radial-gradient(closest-corner, #ac35ce 30%, #722389);
+  overflow: hidden;
+  z-index: -1;
+  .sunburst-inner {
+    position: relative;
+    left: 50%;
+    margin-top: -1625px;
+    margin-left: -2000px;
+    height: 4000px;
+    width: 4000px;
+    animation-name: sunburst;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    background: transparent;
+    b {
+      z-index: -2;
+      display: block;
+      position: absolute;
+      margin: 1800px 0px;
+      border-width: 200px 2000px;
+      border-color: transparent rgba(0,0,0,0.375);
+      border-style: solid;
+      &:nth-child(2) { transform:rotate(20deg); }
+      &:nth-child(3) { transform:rotate(40deg); }
+      &:nth-child(4) { transform:rotate(60deg); }
+      &:nth-child(5) { transform:rotate(80deg); }
+      &:nth-child(6) { transform:rotate(100deg); }
+      &:nth-child(7) { transform:rotate(120deg); }
+      &:nth-child(8) { transform:rotate(140deg); }
+      &:nth-child(9) { transform:rotate(160deg); }
+    }
+  }
+}
+
+@keyframes sunburst {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(20deg); }
+}

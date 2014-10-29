@@ -1,0 +1,16 @@
+ProfileView = Marionette.ItemView.extend({
+  template: 'profile',
+  className: 'profile-view',
+  ui: {
+    'beenz_line': '.beenz-line'
+  },
+  onRender: function() {
+    var beenz = this.model.get('beenz');
+    for (var been = 1; been <= beenz; been++ ) {
+      var img = $('<img>');
+      img.addClass('beenz beenz-' + beenz);
+      img.attr('src', 'beenz-' + beenz + '.png');
+      this.ui.beenz_line.append(img);
+    }
+  }
+});

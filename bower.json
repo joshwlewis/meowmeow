@@ -1,0 +1,29 @@
+{
+  "name": "meowmeow",
+  "version": "0.0.0",
+  "authors": [
+    "Josh Lewis <josh.w.lewis@gmail.com>"
+  ],
+  "description": "MeowMeowBeenz Client Side App",
+  "keywords": [
+    "meowmeowbeenz",
+    "broccoli",
+    "backbone",
+    "marionette"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone.marionette": "~2.2.2",
+    "lodash": "~2.4.1",
+    "bootstrap": "~3.2.0",
+    "backbone.picky": "~0.2.0"
+  }
+}
