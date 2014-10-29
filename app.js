@@ -24206,6 +24206,7 @@ AppController = Marionette.Controller.extend({
   },
 
   listUsers: function() {
+    app.request('ratings');
     var users = app.request('users');
 
     var view = new UserCollectionView({ collection: users });
@@ -24431,7 +24432,7 @@ UserItemView = Marionette.LayoutView.extend({
     }
   },
   showRating: function() {
-    if (app.request('token') && this.model.selected) {
+    if (app.request('profile').id && this.model.selected) {
       var rating = app.request('rating', this.model.id);
       view = new RatingView({ model: rating });
       this.rating_container.show(view);
@@ -24477,11 +24478,16 @@ app.reqres.setHandler('token', function() {
   return localStorage.getItem('token');
 });
 
-app.reqres.setHandler('rating', function(user_id) {
+app.reqres.setHandler('ratings', function() {
   if (!app.ratings) {
     app.ratings = new RatingsCollection();
     app.ratings.fetch();
   }
+  return app.ratings;
+});
+
+app.reqres.setHandler('rating', function(user_id) {
+  var ratings = app.request('ratings');
   var rating = app.ratings.findWhere({ ratee_id: user_id });
   return rating || app.ratings.add({ ratee_id: user_id });
 });
@@ -24502,8 +24508,8 @@ $(function() {
 
 JST["profile"]="<img class='avatar img-circle' src='{{ gravatar_url }}'> <h3 class='name'>{{ name }}</h3> <div class='beenz-line'></div>";
 JST["profile_form"]="<div class='modal-header'> <button type='reset' class='close' data-dismiss='modal'> &times; </button> <h4 class='modal-title'>Register</h4> </div> <div class='modal-body form'> <div class='form-group'> <label class='control-label' for='email'>Email</label> <label class='control-label error-message' for='email'></label> <input type='email' class='form-control' name='email' placeholder='anadir@greedale.edu'> </div> <div class='form-group'> <label for='name'>Handle</label> <label class='control-label error-message' for='handle'></label> <input type='text' class='form-control' name='name' placeholder='Abed'> </div> <div class='form-group'> <label for='password'>Password</label> <label class='control-label error-message' for='password'></label> <input type='password' class='form-control' name='password'> </div> <div class='form-group'> <label for='password_confirmation'>Password Confirmation</label> <label class='control-label error-message' for='password_confirmation'></label> <input type='password' class='form-control' name='password_confirmation'> </div> </div> <div class='modal-footer'> <button type='reset' class='btn btn-default' data-dismiss='modal'> Cancel </button> <button type='submit' class='btn btn-primary'>Register</button> </div>";
-JST["rating"]="<img class='beenz beenz-1' src='/beenz-0.png'> <img class='beenz beenz-2' src='/beenz-0.png'> <img class='beenz beenz-3' src='/beenz-0.png'> <img class='beenz beenz-4' src='/beenz-0.png'> <img class='beenz beenz-5' src='/beenz-0.png'>";
+JST["rating"]="<p>Your Rating</p> <div class='beenz-line'> <img class='beenz beenz-1' src='/beenz-0.png'> <img class='beenz beenz-2' src='/beenz-0.png'> <img class='beenz beenz-3' src='/beenz-0.png'> <img class='beenz beenz-4' src='/beenz-0.png'> <img class='beenz beenz-5' src='/beenz-0.png'> </div>";
 JST["session_form"]="<div class='modal-header'> <button type='reset' class='close' data-dismiss='modal'> &times; </button> <h4 class='modal-title'>Login</h4> </div> <div class='modal-body form'> <div class='form-group'> <label class='control-label' for='email'>Email</label> <label class='control-label error-message' for='password'></label> <input type='email' class='form-control' name='email' placeholder='anadir@greendale.edu'> </div> <div class='form-group'> <label class='control-label' for='password'>Password</label> <label class='control-label error-message' for='password'></label> <input type='password' class='form-control' name='password'> </div> </div> <div class='modal-footer'> <button type='reset' class='btn btn-default' data-dismiss='modal'> Cancel </button> <button type='submit' class='btn btn-primary'>Login</button> </div>";
 JST["unauthenticated_layout"]="<div> <img class='beenz beenz-1' src='beenz-1.png'> <img class='beenz beenz-2' src='beenz-2.png'> <img class='beenz beenz-3' src='beenz-3.png'> <img class='beenz beenz-4' src='beenz-4.png'> <img class='beenz beenz-5' src='beenz-5.png'> </div> <h3 class='tag highlight'>These will change everything!</h3> <button class='btn btn-primary' data-toggle='modal' data-target='#login-modal'> Login </button> <button class='btn btn-primary' data-toggle='modal' data-target='#register-modal'> Register </button> <div id='login-modal' class='modal fade'> <div class='modal-dialog'> <div id='login-container' class='modal-content'> </div> </div> </div> <div id='register-modal' class='modal fade'> <div class='modal-dialog'> <div id='register-container' class='modal-content'> </div> </div> </div>";
 JST["user_item_basic"]="<div class='row basic'> <div class='avatar col-xs-2'> <img class='avatar img-circle' src='{{ gravatar_url }}' alt='{{ name }}'> </div> <div class='info col-xs-10'> <div class='beenz-line'> </div> <a href='#' class='name'>{{ name }}</a> </div> </div> <div id='rating-container'></div>";
-JST["user_item_detail"]="<div class='detail'> <img class='avatar img-circle' src='{{ gravatar_url }}'> <h3 class='name'>{{ name }}</h3> <div class='beenz-line'></div> </div> <div id='rating-container'></div>";
+JST["user_item_detail"]="<div class='detail'> <img class='avatar img-circle' src='{{ gravatar_url }}'> <h3 class='name'>{{ name }}</h3> <div class='beenz-line'></div> <div id='rating-container'></div> </div>";

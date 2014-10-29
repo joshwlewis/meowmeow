@@ -6214,6 +6214,12 @@ button.close {
             transform: rotate(20deg);
   }
 }
+.user-collection-view .user-item-view .detail {
+  text-align: center;
+}
+.user-collection-view .user-item-view .detail #rating-container {
+  margin: 10px auto;
+}
 .user-collection-view .user-item-view .basic .avatar {
   text-align: center;
 }
