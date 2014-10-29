@@ -36,11 +36,16 @@ app.reqres.setHandler('token', function() {
   return localStorage.getItem('token');
 });
 
-app.reqres.setHandler('rating', function(user_id) {
+app.reqres.setHandler('ratings', function() {
   if (!app.ratings) {
     app.ratings = new RatingsCollection();
     app.ratings.fetch();
   }
+  return app.ratings;
+});
+
+app.reqres.setHandler('rating', function(user_id) {
+  var ratings = app.request('ratings');
   var rating = app.ratings.findWhere({ ratee_id: user_id });
   return rating || app.ratings.add({ ratee_id: user_id });
 });

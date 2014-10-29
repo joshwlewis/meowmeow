@@ -10,6 +10,7 @@ AppController = Marionette.Controller.extend({
   },
 
   listUsers: function() {
+    app.request('ratings');
     var users = app.request('users');
 
     var view = new UserCollectionView({ collection: users });

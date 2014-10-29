@@ -41,7 +41,7 @@ UserItemView = Marionette.LayoutView.extend({
     }
   },
   showRating: function() {
-    if (app.request('token') && this.model.selected) {
+    if (app.request('profile').id && this.model.selected) {
       var rating = app.request('rating', this.model.id);
       view = new RatingView({ model: rating });
       this.rating_container.show(view);
