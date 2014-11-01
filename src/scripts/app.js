@@ -38,15 +38,14 @@ app.reqres.setHandler('token', function() {
 
 app.reqres.setHandler('ratings', function() {
   if (!app.ratings) {
-    app.ratings = new RatingsCollection();
+    app.ratings = new RatingCollection();
     app.ratings.fetch();
   }
   return app.ratings;
 });
 
 app.reqres.setHandler('rating', function(user_id) {
-  var ratings = app.request('ratings');
-  var rating = app.ratings.findWhere({ ratee_id: user_id });
+  var rating = app.request('ratings').findWhere({ ratee_id: user_id });
   return rating || app.ratings.add({ ratee_id: user_id });
 });
 
@@ -55,7 +54,6 @@ app.vent.on("change:token", function(token) {
   if (token) {
     app.request('profile').fetch();
   } else {
-    console.log('clearing profile');
     app.request('profile').clear();
   }
 });
